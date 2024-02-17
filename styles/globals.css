@@ -10,6 +10,6 @@ body {
   @apply h-full;
 }
 
-body {
+html {
   @apply h-full;
 }
