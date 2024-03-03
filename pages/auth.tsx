@@ -1,7 +1,11 @@
 import Input from "@/components/input";
+import axios from "axios";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const Auth = () => {
+  const router = useRouter();
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -9,6 +13,40 @@ const Auth = () => {
   const togglePage = () => {
     setIsLogin((pre) => !pre);
   };
+
+  const register = async () => {
+    try {
+      const response = await axios.post("/api/register", {
+        name: userName,
+        email,
+        password,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const login = async () => {
+    try {
+      await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+        callbackUrl: "/",
+      });
+      router.replace("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = () => {
+    if (isLogin) {
+      login();
+    } else {
+      register();
+    }
+  };
+
   return (
     <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
       <div className="w-full bg-black h-full lg:bg-opacity-50">
@@ -49,6 +87,7 @@ const Auth = () => {
             <button
               className="bg-red-600 py-3 text-white rounded-md w-full mt-10
              hover:bg-red-700 transition"
+              onClick={handleSubmit}
             >
               {isLogin ? "Login" : "Sign up"}
             </button>
