@@ -3,6 +3,8 @@ import axios from "axios";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import { FaGithub } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 const Auth = () => {
   const router = useRouter();
@@ -91,6 +93,20 @@ const Auth = () => {
             >
               {isLogin ? "Login" : "Sign up"}
             </button>
+            <div className="flex flex-row items-center justify-center gap-4 mt-8">
+              <div
+                onClick={() => signIn("google", { callbackUrl: "/" })}
+                className="w-10 h-10 flex bg-white rounded-full items-center justify-center"
+              >
+                <FcGoogle size={30} />
+              </div>
+              <div
+                onClick={() => signIn("github", { callbackUrl: "/" })}
+                className="w-10 h-10 flex bg-white rounded-full items-center justify-center"
+              >
+                <FaGithub size={30} />
+              </div>
+            </div>
             <p className="text-neutral-500 mt-12">
               {isLogin
                 ? "First time using Netflix?"
