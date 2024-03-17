@@ -48,7 +48,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
     "
       onClick={toggleFavorites}
     >
-      <Icon />
+      <Icon  className="text-white"/>
     </div>
   );
 };

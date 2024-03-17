@@ -1,9 +1,18 @@
 import userBillboard from "@/hooks/useBillboard";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import PlayButton from "./PlayButton";
+import { useContext } from "react";
+import ModalContext from "@/store/ModalContext";
 
 const Billboard = () => {
   const { data } = userBillboard();
+  const { openModal } = useContext(ModalContext);
+  const handleModalOpen = () => {
+    console.log("data", data);
+    console.log("opppen");
+
+    openModal(data?.id);
+  };
   return (
     <div className="relative h-[56.25vw]">
       <video
@@ -34,6 +43,7 @@ const Billboard = () => {
            rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row
            items-center hover:opacity-20 transition  
            "
+            onClick={handleModalOpen}
           >
             <AiOutlineInfoCircle className="mr-1" />
             More Info
